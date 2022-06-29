@@ -1,20 +1,21 @@
 #include <iostream>
+#include <utility>
 
 #include "driver.h"
 
-namespace bck {
-    driver::driver(std::string db_file)
-    : db_file_(std::move(db_file)) {
-        connect(db_file_);
+namespace bck::sql {
+    driver::driver(config cfg)
+    : cfg_(std::move(cfg)) {
+        connect(cfg_);
     }
 
     driver::~driver() {
         sqlite3_close(db_);
     }
 
-    void driver::connect(const std::string &db_file) {
-        db_file_ = db_file;
-        is_connected_ = (sqlite3_open(db_file_.c_str(), &db_) == 0);
+    void driver::connect(const config &cfg) {
+        cfg_ = cfg;
+        is_connected_ = (sqlite3_open(cfg_.db_name.c_str(), &db_) == 0);
         std::cout<<"is_connected: "<<is_connected_<<std::endl;
     }
 

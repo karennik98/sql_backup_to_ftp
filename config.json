@@ -1,0 +1,11 @@
+{
+  "db": {
+    "name": "example.db"
+  },
+  "ftp": {
+    "hostname": "localhost",
+    "port": 14850,
+    "username": "karen",
+    "password": "something"
+  }
+}

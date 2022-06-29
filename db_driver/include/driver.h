@@ -5,15 +5,20 @@
 #include <string>
 #include <memory>
 
-namespace bck {
+namespace bck::sql {
+
+    struct config {
+        std::string db_name;
+    };
+
     class driver {
     public:
         driver() = default;
-        explicit driver(std::string db_file);
+        explicit driver(config cfg);
         ~driver();
 
     public:
-        void connect(const std::string& db_file);
+        void connect(const config& cfg);
 
     public:
         [[nodiscard]] bool is_connected() const noexcept { return is_connected_; }
@@ -22,7 +27,7 @@ namespace bck {
         int execute(const std::string& cmd);
 
     private:
-        std::string db_file_{};
+        config cfg_;
         bool is_connected_{false};
         sqlite3* db_ = nullptr;
     };
