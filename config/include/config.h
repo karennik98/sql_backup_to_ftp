@@ -10,9 +10,13 @@ namespace bck::json {
     class config {
     public:
         void parse(const std::string& path);
+
+    public:
+        ftp::config get_ftp_config() { return ftp_confog_; };
+        sql::config get_db_config()  { return db_config_;  };
     private:
         nlohmann::json parse_file(const std::string& path);
-    public:
+    private:
         sql::config db_config_;
         ftp::config ftp_confog_;
     };

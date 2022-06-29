@@ -29,8 +29,7 @@ namespace bck::ftp {
 
         if (nullptr == hFtpSession)
         {
-            throw std::runtime_error {"[ERROR]: Connection to FTP server failed. Error code:"
-                                      + std::to_string(GetLastError())};
+            throw std::runtime_error {"Connection to FTP server failed. Error code:" + std::to_string(GetLastError())};
         }
 
         const auto status = FtpPutFile(hFtpSession

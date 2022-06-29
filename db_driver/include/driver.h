@@ -9,6 +9,7 @@ namespace bck::sql {
 
     struct config {
         std::string db_name;
+        std::string db_backup;
     };
 
     class driver {
@@ -25,6 +26,7 @@ namespace bck::sql {
 
     public:
         int execute(const std::string& cmd);
+        std::string backup() const;
 
     private:
         config cfg_;

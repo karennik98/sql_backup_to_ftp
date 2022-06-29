@@ -1,5 +1,5 @@
 #include <iostream>
-#include <utility>
+#include <fstream>
 
 #include "driver.h"
 
@@ -26,12 +26,35 @@ namespace bck::sql {
         auto is_ok = sqlite3_exec(db_, cmd.c_str(), nullptr, nullptr, &err_msg);
 
         if (is_ok != SQLITE_OK) {
-            std::cerr << "Error Create Table" << std::endl;
+            std::cerr << "[ERROR]: Cant execute command" << std::endl;
             sqlite3_free(err_msg);
-        } else {
-            std::cout << "Table created Successfully" << std::endl;
         }
 
         return is_ok;
+    }
+
+    std::string driver::backup() const {
+        std::string line;
+
+        std::ofstream bck_file(cfg_.db_backup);
+        if(!bck_file.is_open()) {
+            std::cerr<<"[ERROR]: Cant open backup file: "<<cfg_.db_backup<<std::endl;
+            return {};
+        }
+
+        std::ifstream db_file (cfg_.db_name);
+        if(!db_file.is_open()) {
+            std::cerr<<"[ERROR]: Cant open db file: "<<cfg_.db_name<<std::endl;
+            return {};
+        }
+
+        while ( getline (db_file,line) ) {
+            bck_file<<line<<std::endl;
+        }
+
+        db_file.close();
+        bck_file.close();
+
+        return cfg_.db_backup;
     }
 }

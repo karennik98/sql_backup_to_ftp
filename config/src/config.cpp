@@ -8,6 +8,7 @@ namespace bck::json {
         auto jobj = parse_file(path);
 
         db_config_.db_name = jobj["db"]["name"];
+        db_config_.db_backup = jobj["db"]["backup_file"];
 
         ftp_confog_.hostname = jobj["ftp"]["hostname"];
         ftp_confog_.port = jobj["ftp"]["port"];
