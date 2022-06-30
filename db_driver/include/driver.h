@@ -15,8 +15,13 @@ namespace bck::sql {
     class driver {
     public:
         driver() = default;
+        ~driver() = default;
+        driver(const driver&) = default;
+        driver(driver&&) noexcept = default;
+        driver& operator=(const driver&) = default;
+        driver& operator=(driver&&) noexcept = default;
+
         explicit driver(config cfg);
-        ~driver();
 
     public:
         void connect(const config& cfg);
@@ -26,11 +31,11 @@ namespace bck::sql {
 
     public:
         int execute(const std::string& cmd);
-        std::string backup() const;
+        [[nodiscard]] std::string backup() const;
 
     private:
         config cfg_;
         bool is_connected_{false};
-        sqlite3* db_ = nullptr;
+        std::shared_ptr<sqlite3> db_;
     };
 }
