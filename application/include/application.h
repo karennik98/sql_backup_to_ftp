@@ -38,6 +38,6 @@ namespace bck {
     private:
         sql::driver driver_;
         ftp::sender sender_;
-        json::config config_;
+        json::config_parser config_;
     };
 }

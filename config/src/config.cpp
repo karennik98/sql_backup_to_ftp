@@ -4,7 +4,7 @@
 #include <iostream>
 
 namespace bck::json {
-    void config::parse(const std::string& path) {
+    void config_parser::parse(const std::string& path) {
         auto jobj = parse_file(path);
 
         db_config_.db_name = jobj["db"]["name"];
@@ -17,7 +17,7 @@ namespace bck::json {
         ftp_confog_.upload_folder = jobj["ftp"]["upload_folder"];
     }
 
-    nlohmann::json config::parse_file(const std::string &path) {
+    nlohmann::json config_parser::parse_file(const std::string &path) {
         std::ifstream ifile(path);
         std::string line;
         std::string json_text;
