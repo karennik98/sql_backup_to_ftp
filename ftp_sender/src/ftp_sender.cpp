@@ -31,16 +31,15 @@ namespace bck::ftp {
         {
             throw std::runtime_error {"Connection to FTP server failed. Error code:" + std::to_string(GetLastError())};
         }
-
         const auto status = FtpPutFile(hFtpSession
                 , file_path.data()
-                , remote_file.data()
+                , remote_file.c_str()
                 , FTP_TRANSFER_TYPE_BINARY
                 , 0);
 
         if (!status)
         {
-            throw std::runtime_error {"[ERROR]: File sending failed. Error code:"
+            throw std::runtime_error {"File sending to ftp failed. Error code:"
                                       + std::to_string(GetLastError())};
         }
 

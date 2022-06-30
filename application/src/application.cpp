@@ -47,7 +47,7 @@ namespace bck {
 
             auto backup_file = driver_.backup();
 
-            sender_.send_file(backup_file, "tessst.txt");
+            sender_.send_file(backup_file, "test.txt");
 
         } catch (const std::exception& ex) {
             std::cerr<<"[EXCEPTION]: "<<ex.what()<<std::endl;

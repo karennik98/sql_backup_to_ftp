@@ -14,6 +14,7 @@ namespace bck::json {
         ftp_confog_.port = jobj["ftp"]["port"];
         ftp_confog_.username = jobj["ftp"]["username"];
         ftp_confog_.password = jobj["ftp"]["password"];
+        ftp_confog_.upload_folder = jobj["ftp"]["upload_folder"];
     }
 
     nlohmann::json config::parse_file(const std::string &path) {

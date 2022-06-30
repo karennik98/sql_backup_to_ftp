@@ -8,6 +8,7 @@ namespace bck::ftp {
         int port;
         std::string username;
         std::string password;
+        std::string upload_folder;
     };
 
     class sender {
