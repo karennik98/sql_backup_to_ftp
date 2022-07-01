@@ -18,13 +18,13 @@ namespace bck::sql {
 
     public:
         driver() = default;
-        ~driver() = default;
-        driver(const driver&) = default;
-        driver(driver&&) noexcept = default;
-        driver& operator=(const driver&) = default;
-        driver& operator=(driver&&) noexcept = default;
-
         explicit driver(config cfg);
+        ~driver() = default;
+
+        driver(const driver&) = delete;
+        driver(driver&&) noexcept = delete;
+        driver& operator=(const driver&) = delete;
+        driver& operator=(driver&&) noexcept = delete;
 
     public:
         void connect(const config& cfg);

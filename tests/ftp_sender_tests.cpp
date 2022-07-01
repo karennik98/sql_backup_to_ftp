@@ -12,6 +12,7 @@ TEST(ftp_sender_test, send_test) {
         "karen",
         "something",
         "C:\\FTP"};
+
     static const std::string bck_file_name{"test.txt"};
 
     try {
