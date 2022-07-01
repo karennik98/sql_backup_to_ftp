@@ -8,6 +8,6 @@ int main(int argc, char* argv[]) {
         exit(-1);
     }
     bck::application::initialize_instance(argv[1]);
-    bck::application::instance().execute();
+    bck::application::instance().run();
     return 0;
 }

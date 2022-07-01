@@ -23,7 +23,21 @@ namespace bck::sql {
         auto is_ok = sqlite3_exec(db_.get(), cmd.c_str(), nullptr, nullptr, &err_msg);
 
         if (is_ok != SQLITE_OK) {
-            std::cerr << "[ERROR]: Cant execute command" << std::endl;
+            std::cerr << "[ERROR]: Cant execute command: "<< is_ok << std::endl;
+            sqlite3_free(err_msg);
+        }
+
+        return is_ok;
+    }
+
+    int driver::execute(const std::string &cmd, callback_t callback) {
+        std::cout << "[INFO]: Start executing " << cmd << " command\n";
+
+        char *err_msg;
+        auto is_ok = sqlite3_exec(db_.get(), cmd.c_str(), callback, nullptr, &err_msg);
+
+        if (is_ok != SQLITE_OK) {
+            std::cerr << "[ERROR]: Cant execute command: "<< is_ok << std::endl;
             sqlite3_free(err_msg);
         }
 
@@ -31,7 +45,9 @@ namespace bck::sql {
     }
 
     std::string driver::backup() const {
-        std::string line;
+        if(!is_connected()) {
+            return {};
+        }
 
         std::ofstream bck_file(cfg_.db_backup);
         if(!bck_file.is_open()) {
@@ -45,6 +61,7 @@ namespace bck::sql {
             return {};
         }
 
+        std::string line;
         while ( getline (db_file,line) ) {
             bck_file<<line<<std::endl;
         }

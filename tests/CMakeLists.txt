@@ -15,12 +15,12 @@ FetchContent_MakeAvailable(googletest)
 include_directories(${DB_DRIVER_INCLUDE_DIR})
 include_directories(${FTP_SENDER_INCLUDE_DIR})
 include_directories(${SQLITE_INCLUDE_DIR})
-include_directories(${CONFIG_INCLUDE_DIR})
+include_directories(${APP_INCLUDE_DIR})
 
 add_executable(config_tests config_tests.cpp)
-target_link_libraries(config_tests gtest_main ${config})
+target_link_libraries(config_tests gtest_main ${application})
 
 add_executable(driver_test db_driver_tests.cpp)
-target_link_libraries(driver_test gtest_main ${db_driver})
+target_link_libraries(driver_test gtest_main ${db_driver} ${application})
 
 

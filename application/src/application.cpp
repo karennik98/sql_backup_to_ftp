@@ -23,17 +23,17 @@ namespace bck {
         sender_.init(config_.get_ftp_config());
     }
 
-    void application::execute() {
+    void application::run() {
         try {
             if(!driver_.is_connected()) {
                 std::cerr<<"[ERROR]: Cant connect to the db\n";
                 return;
             }
 
-            std::string create = "CREATE TABLE PERSON("
+            std::string create = "CREATE TABLE IF NOT EXISTS PERSON("
                   "ID INT PRIMARY KEY     NOT NULL, "
                   "NAME           TEXT    NOT NULL, "
-                  "SURNAME          TEXT     NOT NULL, "
+                  "SURNAME        TEXT    NOT NULL, "
                   "AGE            INT     NOT NULL, "
                   "ADDRESS        CHAR(50), "
                   "SALARY         REAL );";
@@ -42,8 +42,11 @@ namespace bck {
             int rows_count = 1;
             while(rows_count <= 100) {
                 std::string insert("INSERT INTO PERSON VALUES(" + std::to_string(rows_count++) + ", 'STEVE', 'GATES', 30, 'PALO ALTO', 1000.0);");
-                driver_.execute(insert);
+                auto code = driver_.execute(insert);
             }
+
+            std::string select = "SELECT * FROM PERSON;";
+            driver_.execute(select, callback);
 
             auto backup_file = driver_.backup();
 

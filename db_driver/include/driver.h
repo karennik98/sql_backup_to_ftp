@@ -14,6 +14,9 @@ namespace bck::sql {
 
     class driver {
     public:
+        using callback_t = std::add_pointer_t<int(void*, int, char**, char**)>;
+
+    public:
         driver() = default;
         ~driver() = default;
         driver(const driver&) = default;
@@ -31,6 +34,7 @@ namespace bck::sql {
 
     public:
         int execute(const std::string& cmd);
+        int execute(const std::string& cmd, callback_t callback);
         [[nodiscard]] std::string backup() const;
 
     private:

@@ -8,13 +8,28 @@
 #include <mutex>
 
 namespace bck {
+    static int callback(void* data, int argc, char** argv, char** azColName)
+    {
+        int i;
+        fprintf(stderr, "%s: ", (const char*)data);
+
+        for (i = 0; i < argc; i++) {
+            printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+        }
+
+        printf("\n");
+        return 0;
+    }
+
     class application {
     public:
         ~application() = default;
 
     public:
-        application& operator=(const application&) = delete;
+        application(application&& other) = delete;
         application(const application& other) = delete;
+        application& operator=(const application&) = delete;
+        application& operator=(application&&) = delete;
 
     public:
         static application& instance();
@@ -33,7 +48,7 @@ namespace bck {
         static application app_instance;
 
     public:
-        void execute();
+        void run();
 
     private:
         sql::driver driver_;

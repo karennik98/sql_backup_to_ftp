@@ -15,7 +15,7 @@ namespace bck::json {
         ftp::config get_ftp_config() { return ftp_confog_; };
         sql::config get_db_config()  { return db_config_;  };
     private:
-        static static static nlohmann::json parse_file(const std::string& path);
+        static nlohmann::json parse_file(const std::string& path);
     private:
         sql::config db_config_;
         ftp::config ftp_confog_;
