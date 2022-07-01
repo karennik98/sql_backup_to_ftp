@@ -3,7 +3,7 @@ project(SQL2FTP)
 
 set(CMAKE_CXX_STANDARD 17)
 
-option(UNIT_TEST "Build unit tests." ON)
+option(UNIT_TEST "Build unit tests." OFF)
 
 set(SQLITE_INCLUDE_DIR     "${CMAKE_SOURCE_DIR}/db_driver/sqlite/include")
 set(DB_DRIVER_INCLUDE_DIR  "${CMAKE_SOURCE_DIR}/db_driver/include")
@@ -13,10 +13,10 @@ set(APP_INCLUDE_DIR        "${CMAKE_SOURCE_DIR}/application/include")
 add_subdirectory(db_driver)
 add_subdirectory(ftp_sender)
 add_subdirectory(application)
-#if(UNIT_TEST)
+if(UNIT_TEST)
     message(STATUS "Start building unit tests")
     add_subdirectory(tests)
-#endif(UNIT_TEST)
+endif(UNIT_TEST)
 
 include_directories(${SQLITE_INCLUDE_DIR})
 include_directories(${DB_DRIVER_INCLUDE_DIR})
